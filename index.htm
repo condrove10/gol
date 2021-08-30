@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Life</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div id="nav-bar">
+        <button id="pause">Pause</button>
+        <button id="start">Start</button>
+        <button id="step">Step</button>
+        <button id="random">Random</button>
+        <button id="clear">Clear</button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <div id="tips"> *You can use your mouse to draw on the board</div>
+
+    <script src="assets/js/gol.js"></script>
+    <script>
+        const game = new GameOfLife(document.querySelector("canvas"), 1200, 600, 20, {
+            aliveColor: "#9dcc5f",
+            penColor: "orange"
+        })
+
+        game.initGrid()
+        game.randGenPop()
+        game.displayPop()
+
+        document.querySelector("#pause").addEventListener("click", e => {
+            game.pauseGame()
+            e.target.style["background-color"] = "#772525"
+        })
+
+        document.querySelector("#start").addEventListener("click", e => {
+            game.runGame(200)
+            document.querySelector('#pause').style["background-color"] = "transparent"
+        })
+
+        document.querySelector("#step").addEventListener("click", e => {
+            game.evalNextGen()
+            game.displayPop()
+        })
+
+        document.querySelector("#random").addEventListener("click", e => {
+            game.pauseGame()
+            game.initGrid()
+            game.randGenPop()
+            game.displayPop()
+        })
+
+        document.querySelector("#clear").addEventListener("click", e => {
+            game.pauseGame()
+            game.initGrid()
+            game.displayPop()
+        })
+    </script>
+</body>
+
+</html>
